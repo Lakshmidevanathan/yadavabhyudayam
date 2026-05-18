@@ -1,0 +1,33 @@
+{
+  "title": "यादवाभ्युदयम्",
+  "titleEnglish": "Yadavabhyudayam",
+  "author": "श्रीवेदान्तदेशिकः",
+  "authorEnglish": "Sri Vedanta Deshika",
+  "totalSargas": 24,
+  "sargas": [
+    { "number": 1, "name": "प्रथमः सर्गः", "nameEnglish": "Sarga 1", "shlokaCount": 0 },
+    { "number": 2, "name": "द्वितीयः सर्गः", "nameEnglish": "Sarga 2", "shlokaCount": 4 },
+    { "number": 3, "name": "तृतीयः सर्गः", "nameEnglish": "Sarga 3", "shlokaCount": 0 },
+    { "number": 4, "name": "चतुर्थः सर्गः", "nameEnglish": "Sarga 4", "shlokaCount": 0 },
+    { "number": 5, "name": "पञ्चमः सर्गः", "nameEnglish": "Sarga 5", "shlokaCount": 0 },
+    { "number": 6, "name": "षष्ठः सर्गः", "nameEnglish": "Sarga 6", "shlokaCount": 0 },
+    { "number": 7, "name": "सप्तमः सर्गः", "nameEnglish": "Sarga 7", "shlokaCount": 0 },
+    { "number": 8, "name": "अष्टमः सर्गः", "nameEnglish": "Sarga 8", "shlokaCount": 0 },
+    { "number": 9, "name": "नवमः सर्गः", "nameEnglish": "Sarga 9", "shlokaCount": 0 },
+    { "number": 10, "name": "दशमः सर्गः", "nameEnglish": "Sarga 10", "shlokaCount": 0 },
+    { "number": 11, "name": "एकादशः सर्गः", "nameEnglish": "Sarga 11", "shlokaCount": 0 },
+    { "number": 12, "name": "द्वादशः सर्गः", "nameEnglish": "Sarga 12", "shlokaCount": 0 },
+    { "number": 13, "name": "त्रयोदशः सर्गः", "nameEnglish": "Sarga 13", "shlokaCount": 0 },
+    { "number": 14, "name": "चतुर्दशः सर्गः", "nameEnglish": "Sarga 14", "shlokaCount": 0 },
+    { "number": 15, "name": "पञ्चदशः सर्गः", "nameEnglish": "Sarga 15", "shlokaCount": 0 },
+    { "number": 16, "name": "षोडशः सर्गः", "nameEnglish": "Sarga 16", "shlokaCount": 0 },
+    { "number": 17, "name": "सप्तदशः सर्गः", "nameEnglish": "Sarga 17", "shlokaCount": 0 },
+    { "number": 18, "name": "अष्टादशः सर्गः", "nameEnglish": "Sarga 18", "shlokaCount": 0 },
+    { "number": 19, "name": "एकोनविंशः सर्गः", "nameEnglish": "Sarga 19", "shlokaCount": 0 },
+    { "number": 20, "name": "विंशः सर्गः", "nameEnglish": "Sarga 20", "shlokaCount": 0 },
+    { "number": 21, "name": "एकविंशः सर्गः", "nameEnglish": "Sarga 21", "shlokaCount": 0 },
+    { "number": 22, "name": "द्वाविंशः सर्गः", "nameEnglish": "Sarga 22", "shlokaCount": 0 },
+    { "number": 23, "name": "त्रयोविंशः सर्गः", "nameEnglish": "Sarga 23", "shlokaCount": 0 },
+    { "number": 24, "name": "चतुर्विंशः सर्गः", "nameEnglish": "Sarga 24", "shlokaCount": 0 }
+  ]
+}

@@ -1,0 +1,358 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #fdf6e3;
+    color: #3b2e1a;
+    line-height: 1.6;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+header {
+    background: linear-gradient(135deg, #8b1a1a, #c0392b);
+    color: #fff;
+    padding: 1rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.header-brand {
+    display: flex;
+    align-items: stretch;
+    justify-content: center;
+    gap: 0.75rem;
+    max-width: 800px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 1rem;
+    box-sizing: border-box;
+}
+
+.title-image {
+    height: 100%;
+    width: auto;
+    aspect-ratio: 1 / 1;
+    min-height: 110px;
+    max-height: 140px;
+    object-fit: cover;
+    object-position: center top;
+    border-radius: 8px;
+    flex-shrink: 0;
+    align-self: stretch;
+}
+
+.header-text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    flex: 1;
+    padding: 0.25rem 0;
+}
+
+.title-sanskrit {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 0.35rem;
+    line-height: 1.2;
+}
+
+.title-english {
+    font-size: 0.95rem;
+    opacity: 0.9;
+    margin-bottom: 0.75rem;
+}
+
+.chapter-nav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-bottom: 0;
+}
+
+.chapter-nav label {
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+#sarga-select {
+    padding: 0.4rem 0.8rem;
+    border-radius: 4px;
+    border: none;
+    font-size: 0.9rem;
+    background: #fff;
+    color: #3b2e1a;
+    cursor: pointer;
+}
+
+main {
+    flex: 1;
+    max-width: 800px;
+    width: 100%;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+.shloka-card {
+    background: #fff;
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+}
+
+.shloka-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-bottom: 1.5rem;
+}
+
+.shloka-label {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #8b1a1a;
+    background: #fce4e4;
+    padding: 0.3rem 1rem;
+    border-radius: 20px;
+    white-space: nowrap;
+}
+
+.card-nav {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    flex: 1;
+    min-width: 0;
+}
+
+.shloka-section {
+    margin-bottom: 1.5rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid #f0e6d3;
+}
+
+.shloka-section:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.shloka-section h2 {
+    font-size: 1rem;
+    color: #8b1a1a;
+    margin-bottom: 0.75rem;
+    font-weight: 600;
+}
+
+.audio-section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+}
+
+.audio-controls-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.2rem;
+}
+
+.audio-part-nav {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    flex-wrap: wrap;
+}
+
+.audio-part-nav[hidden] {
+    display: none !important;
+}
+
+.audio-part-indicator {
+    font-size: 0.8rem;
+    color: #666;
+    font-weight: 500;
+    min-width: 4.5rem;
+    text-align: center;
+}
+
+.part-nav-btn {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.75rem;
+    background: #fce4e4;
+    color: #8b1a1a;
+    border: 1px solid #e8b4b4;
+    border-radius: 4px;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.part-nav-btn:hover:not(:disabled) {
+    background: #f5d0d0;
+}
+
+.part-nav-btn:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+}
+
+.audio-label {
+    font-size: 1rem;
+    color: #8b1a1a;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+#shloka-audio {
+    flex: 1;
+    max-width: 400px;
+    height: 36px;
+}
+
+.sanskrit-text {
+    font-size: 1.25rem;
+    line-height: 2;
+    color: #2c1810;
+    white-space: pre-line;
+}
+
+.padaccheda-text {
+    font-size: 1.1rem;
+    color: #555;
+}
+
+.word-meanings {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.word-meanings thead th {
+    background: #f9f1e6;
+    padding: 0.6rem 1rem;
+    text-align: left;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: #8b1a1a;
+    border-bottom: 2px solid #e8d5b7;
+}
+
+.word-meanings tbody td {
+    padding: 0.5rem 1rem;
+    border-bottom: 1px solid #f0e6d3;
+    font-size: 0.95rem;
+}
+
+.word-meanings tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.word-meanings tbody td:first-child {
+    font-size: 1.1rem;
+    color: #2c1810;
+    font-weight: 500;
+}
+
+.translation-text {
+    font-size: 1.05rem;
+    line-height: 1.8;
+    color: #444;
+    font-style: italic;
+}
+
+footer.navigation {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5rem;
+    padding: 1.5rem;
+    background: #fff;
+    border-top: 1px solid #e8d5b7;
+}
+
+.nav-btn {
+    padding: 0.6rem 1.5rem;
+    background: #8b1a1a;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.1s;
+}
+
+.nav-btn:hover {
+    background: #a52a2a;
+    transform: translateY(-1px);
+}
+
+.nav-btn:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.page-indicator {
+    font-size: 0.9rem;
+    color: #666;
+}
+
+@media (max-width: 600px) {
+    .title-sanskrit {
+        font-size: 1.5rem;
+    }
+
+    .header-brand {
+        gap: 0.5rem;
+        padding: 0 0.5rem;
+    }
+
+    .title-image {
+        min-height: 80px;
+        max-height: 96px;
+    }
+
+    .shloka-header {
+        justify-content: center;
+    }
+
+    .card-nav {
+        justify-content: center;
+        flex: none;
+        width: 100%;
+    }
+
+    .shloka-card {
+        padding: 1.25rem;
+    }
+
+    .sanskrit-text {
+        font-size: 1.1rem;
+    }
+
+    .word-meanings tbody td:first-child {
+        font-size: 1rem;
+    }
+
+    footer.navigation {
+        gap: 0.75rem;
+    }
+
+    .nav-btn {
+        padding: 0.5rem 1rem;
+        font-size: 0.85rem;
+    }
+}

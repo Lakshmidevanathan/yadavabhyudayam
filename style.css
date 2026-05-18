@@ -54,6 +54,18 @@ header {
     text-align: center;
     flex: 1;
     padding: 0.25rem 0;
+    min-width: 0;
+}
+
+.site-status-banner {
+    font-size: clamp(calc(0.65rem + 8pt), calc(2.4vw + 8pt), calc(0.95rem + 8pt));
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    line-height: 1.25;
+    margin-bottom: 0.35rem;
+    text-wrap: balance;
+    max-width: 100%;
+    opacity: 0.95;
 }
 
 .title-sanskrit {
@@ -311,6 +323,11 @@ footer.navigation {
 }
 
 @media (max-width: 600px) {
+    .site-status-banner {
+        font-size: clamp(calc(0.6rem + 8pt), calc(2.8vw + 8pt), calc(0.8rem + 8pt));
+        letter-spacing: 0.02em;
+    }
+
     .title-sanskrit {
         font-size: 1.5rem;
     }

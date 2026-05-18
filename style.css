@@ -275,6 +275,24 @@ main {
     color: #555;
 }
 
+/* Tamil script glyphs render larger at the same font-size; scale to match Sanskrit */
+body.script-tamil {
+    --script-content-scale: 0.86;
+}
+
+body.script-tamil .sanskrit-text {
+    font-size: calc(1.25rem * var(--script-content-scale));
+    line-height: 1.75;
+}
+
+body.script-tamil .padaccheda-text {
+    font-size: calc(1.1rem * var(--script-content-scale));
+}
+
+body.script-tamil .word-meanings tbody td:first-child {
+    font-size: calc(1.1rem * var(--script-content-scale));
+}
+
 .word-meanings {
     width: 100%;
     border-collapse: collapse;
@@ -389,8 +407,20 @@ footer.navigation {
         font-size: 1.1rem;
     }
 
+    body.script-tamil .sanskrit-text {
+        font-size: calc(1.1rem * var(--script-content-scale));
+    }
+
+    body.script-tamil .padaccheda-text {
+        font-size: calc(1.1rem * var(--script-content-scale));
+    }
+
     .word-meanings tbody td:first-child {
         font-size: 1rem;
+    }
+
+    body.script-tamil .word-meanings tbody td:first-child {
+        font-size: calc(1rem * var(--script-content-scale));
     }
 
     footer.navigation {

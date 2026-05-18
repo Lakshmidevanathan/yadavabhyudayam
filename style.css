@@ -83,10 +83,39 @@ header {
 
 .chapter-nav {
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
     justify-content: center;
     gap: 0.5rem;
     margin-bottom: 0;
+}
+
+.script-toggle {
+    display: flex;
+    margin-top: 0.5rem;
+    border-radius: 4px;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+.script-toggle-btn {
+    padding: 0.35rem 0.75rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    border: none;
+    background: rgba(255, 255, 255, 0.15);
+    color: #fff;
+    cursor: pointer;
+    transition: background 0.15s;
+}
+
+.script-toggle-btn:hover {
+    background: rgba(255, 255, 255, 0.25);
+}
+
+.script-toggle-btn.is-active {
+    background: #fff;
+    color: #8b1a1a;
 }
 
 .chapter-nav label {

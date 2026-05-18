@@ -8,6 +8,65 @@ let hasDisplayedOnce = false;
 let currentAudioPlaylist = [];
 let currentAudioPartIndex = 0;
 const MAX_AUDIO_PARTS = 99;
+const SCRIPT_STORAGE_KEY = 'yadavabhyudayam-script';
+let scriptMode = localStorage.getItem(SCRIPT_STORAGE_KEY) || 'sanskrit';
+
+function displayScript(devanagariText) {
+    if (!devanagariText || scriptMode === 'sanskrit') return devanagariText;
+    if (typeof Sanscript === 'undefined') return devanagariText;
+    try {
+        return Sanscript.t(devanagariText, 'devanagari', 'tamil');
+    } catch {
+        return devanagariText;
+    }
+}
+
+function setScriptText(element, devanagariText) {
+    element.dataset.sanskrit = devanagariText;
+    element.textContent = displayScript(devanagariText);
+}
+
+function updateScriptToggleUI() {
+    const sanskritBtn = document.getElementById('btn-script-sanskrit');
+    const tamilBtn = document.getElementById('btn-script-tamil');
+    if (!sanskritBtn || !tamilBtn) return;
+
+    const isTamil = scriptMode === 'tamil';
+    sanskritBtn.classList.toggle('is-active', !isTamil);
+    tamilBtn.classList.toggle('is-active', isTamil);
+    sanskritBtn.setAttribute('aria-pressed', String(!isTamil));
+    tamilBtn.setAttribute('aria-pressed', String(isTamil));
+}
+
+function refreshStaticScriptables() {
+    document.querySelectorAll('.scriptable[data-sanskrit]').forEach((el) => {
+        el.textContent = displayScript(el.dataset.sanskrit);
+    });
+}
+
+function setScriptMode(mode) {
+    if (mode !== 'sanskrit' && mode !== 'tamil') return;
+    scriptMode = mode;
+    localStorage.setItem(SCRIPT_STORAGE_KEY, scriptMode);
+    document.body.classList.toggle('script-tamil', scriptMode === 'tamil');
+    updateScriptToggleUI();
+    refreshStaticScriptables();
+    if (metadata) populateSargaSelect();
+    if (appReady && currentSargaData) displayShloka();
+}
+
+function initScriptToggle() {
+    document.body.classList.toggle('script-tamil', scriptMode === 'tamil');
+    updateScriptToggleUI();
+    refreshStaticScriptables();
+
+    document.getElementById('btn-script-sanskrit')?.addEventListener('click', () => {
+        setScriptMode('sanskrit');
+    });
+    document.getElementById('btn-script-tamil')?.addEventListener('click', () => {
+        setScriptMode('tamil');
+    });
+}
 
 async function loadMetadata() {
     const response = await fetch('data/metadata.json');
@@ -25,7 +84,7 @@ function populateSargaSelect() {
         if (sarga.shlokaCount === 0) return;
         const option = document.createElement('option');
         option.value = String(sarga.number);
-        option.textContent = `${sarga.nameEnglish} (${sarga.name}) — ${sarga.shlokaCount} shlokas`;
+        option.textContent = `${sarga.nameEnglish} (${displayScript(sarga.name)}) — ${sarga.shlokaCount} shlokas`;
         select.appendChild(option);
     });
     select.value = String(currentSarga);
@@ -83,16 +142,21 @@ function displayShloka() {
 
     setupAudioPlaylist(shloka.number);
 
-    document.getElementById('shloka-sanskrit').textContent = shloka.sanskrit;
-    document.getElementById('shloka-padaccheda').textContent = shloka.padaccheda;
-    document.getElementById('shloka-anvaya').textContent = shloka.anvaya;
+    setScriptText(document.getElementById('shloka-sanskrit'), shloka.sanskrit);
+    setScriptText(document.getElementById('shloka-padaccheda'), shloka.padaccheda);
+    setScriptText(document.getElementById('shloka-anvaya'), shloka.anvaya);
     document.getElementById('shloka-translation').textContent = shloka.translation;
 
     const tbody = document.querySelector('#word-meanings-table tbody');
     tbody.innerHTML = '';
     (shloka.wordMeanings || []).forEach(({ word, meaning }) => {
         const row = document.createElement('tr');
-        row.innerHTML = `<td>${word}</td><td>${meaning}</td>`;
+        const wordCell = document.createElement('td');
+        const meaningCell = document.createElement('td');
+        setScriptText(wordCell, word);
+        meaningCell.textContent = meaning;
+        row.appendChild(wordCell);
+        row.appendChild(meaningCell);
         tbody.appendChild(row);
     });
 
@@ -345,6 +409,8 @@ document.querySelectorAll('.audio-part-prev').forEach((btn) => {
 document.querySelectorAll('.audio-part-next').forEach((btn) => {
     btn.addEventListener('click', goAudioPartNext);
 });
+
+initScriptToggle();
 
 parseURL();
 loadMetadata()

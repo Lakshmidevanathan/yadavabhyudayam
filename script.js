@@ -74,7 +74,26 @@ async function loadMetadata() {
         throw new Error('Could not load metadata.json');
     }
     metadata = await response.json();
+    resolveInitialSarga();
     populateSargaSelect();
+}
+
+function isSargaAvailable(sargaNumber) {
+    const sarga = metadata?.sargas?.find((s) => s.number === sargaNumber);
+    return Boolean(sarga && sarga.shlokaCount > 0);
+}
+
+function getFirstAvailableSarga() {
+    const first = metadata?.sargas?.find((s) => s.shlokaCount > 0);
+    return first?.number ?? 1;
+}
+
+function resolveInitialSarga() {
+    if (!metadata) return;
+    if (!isSargaAvailable(currentSarga)) {
+        currentSarga = getFirstAvailableSarga();
+        pendingShlokaNumber = null;
+    }
 }
 
 function populateSargaSelect() {
@@ -317,7 +336,7 @@ function updateNavigation() {
 
 function getLastAvailableSarga() {
     const available = metadata.sargas.filter((s) => s.shlokaCount > 0);
-    return available.length > 0 ? available[available.length - 1].number : 1;
+    return available.length > 0 ? available[available.length - 1].number : getFirstAvailableSarga();
 }
 
 function goNext() {

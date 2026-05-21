@@ -59,13 +59,17 @@ header {
 
 .site-status-banner {
     font-size: clamp(0.6rem, 1.8vw, 0.8rem);
-    font-weight: 600;
-    letter-spacing: 0.03em;
+    font-weight: 700;
+    letter-spacing: 0.05em;
     line-height: 1.2;
     margin-bottom: 0.2rem;
     text-wrap: balance;
     max-width: 100%;
-    opacity: 0.95;
+    color: #ffe566;
+    background: rgba(0, 0, 0, 0.35);
+    padding: 0.2rem 0.6rem;
+    border-radius: 4px;
+    opacity: 1;
 }
 
 .title-english {

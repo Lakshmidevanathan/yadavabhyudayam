@@ -29,27 +29,27 @@
     <main id="shloka-container">
         <section class="shloka-card">
             <div class="shloka-header">
-                <span id="shloka-label" class="shloka-label"></span>
-                <nav class="card-nav navigation" aria-label="Shloka navigation (top)">
-                    <button type="button" class="nav-btn nav-prev">← Previous</button>
-                    <span class="page-indicator"></span>
-                    <button type="button" class="nav-btn nav-next">Next →</button>
-                </nav>
-            </div>
-
-            <div class="shloka-section audio-section">
-                <div class="audio-controls-wrap">
-                    <span class="audio-label">🔊 Listen</span>
-                    <div class="audio-part-nav" id="audio-part-nav" hidden>
-                        <button type="button" class="part-nav-btn audio-part-prev" aria-label="Previous audio part">Part ←</button>
-                        <span id="audio-part-indicator" class="audio-part-indicator"></span>
-                        <button type="button" class="part-nav-btn audio-part-next" aria-label="Next audio part">Part →</button>
+                <div class="shloka-header-row shloka-header-row-nav">
+                    <span id="shloka-label" class="shloka-label"></span>
+                    <nav class="card-nav navigation" aria-label="Shloka navigation (top)">
+                        <button type="button" class="nav-btn nav-prev">← Previous</button>
+                        <button type="button" class="nav-btn nav-next">Next →</button>
+                    </nav>
+                </div>
+                <div class="shloka-header-row shloka-header-row-audio">
+                    <div class="audio-block audio-block-shloka">
+                        <div class="audio-label-row">
+                            <span class="audio-label">🔊 Shloka</span>
+                            <audio id="shloka-audio-shloka" class="shloka-audio-player" controls preload="none"></audio>
+                        </div>
+                    </div>
+                    <div class="audio-block audio-block-meaning">
+                        <div class="audio-label-row">
+                            <span class="audio-label">🔊 Meaning</span>
+                            <audio id="shloka-audio-meaning" class="shloka-audio-player" controls preload="none"></audio>
+                        </div>
                     </div>
                 </div>
-                <audio id="shloka-audio" controls>
-                    <source id="audio-source" src="" type="audio/mpeg">
-                    Your browser does not support the audio element.
-                </audio>
             </div>
 
             <div class="shloka-section">
@@ -80,6 +80,6 @@
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/@indic-transliteration/sanscript@1.3.3/sanscript.min.js"></script>
-    <script src="script.js?v=20250517"></script>
+    <script src="script.js?v=20250522"></script>
 </body>
 </html>

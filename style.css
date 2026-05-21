@@ -149,11 +149,44 @@ main {
 
 .shloka-header {
     display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.shloka-header-row {
+    display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 1rem;
+    gap: 1.5rem;
     flex-wrap: wrap;
-    margin-bottom: 1.5rem;
+    width: 100%;
+}
+
+.shloka-header-row-audio {
+    align-items: flex-start;
+    gap: 2rem;
+}
+
+.shloka-header-row-audio .audio-block {
+    flex: 1 1 220px;
+    min-width: 220px;
+    max-width: 48%;
+}
+
+.audio-block {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.25rem;
+}
+
+.audio-label-row {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    width: 100%;
 }
 
 .shloka-label {
@@ -172,8 +205,7 @@ main {
     justify-content: flex-end;
     gap: 0.75rem;
     flex-wrap: wrap;
-    flex: 1;
-    min-width: 0;
+    flex-shrink: 0;
 }
 
 .shloka-section {
@@ -195,70 +227,19 @@ main {
     font-weight: 600;
 }
 
-.audio-section {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.75rem;
-    flex-wrap: wrap;
-}
-
-.audio-controls-wrap {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0.2rem;
-}
-
-.audio-part-nav {
-    display: flex;
-    align-items: center;
-    gap: 0.4rem;
-    flex-wrap: wrap;
-}
-
-.audio-part-nav[hidden] {
-    display: none !important;
-}
-
-.audio-part-indicator {
-    font-size: 0.8rem;
-    color: #666;
-    font-weight: 500;
-    min-width: 4.5rem;
-    text-align: center;
-}
-
-.part-nav-btn {
-    padding: 0.25rem 0.5rem;
-    font-size: 0.75rem;
-    background: #fce4e4;
-    color: #8b1a1a;
-    border: 1px solid #e8b4b4;
-    border-radius: 4px;
-    cursor: pointer;
-    white-space: nowrap;
-}
-
-.part-nav-btn:hover:not(:disabled) {
-    background: #f5d0d0;
-}
-
-.part-nav-btn:disabled {
-    opacity: 0.45;
-    cursor: not-allowed;
-}
-
 .audio-label {
-    font-size: 1rem;
+    font-size: 0.9rem;
     color: #8b1a1a;
     font-weight: 600;
     white-space: nowrap;
+    flex-shrink: 0;
 }
 
-#shloka-audio {
-    flex: 1;
-    max-width: 400px;
+.shloka-audio-player {
+    display: block;
+    width: 100%;
+    min-width: 200px;
+    max-width: 360px;
     height: 36px;
 }
 
@@ -389,14 +370,47 @@ footer.navigation {
         max-height: 82px;
     }
 
-    .shloka-header {
+    .shloka-header-row {
         justify-content: center;
+        gap: 0.75rem;
+    }
+
+    .shloka-header-row-nav {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .shloka-header-row-audio {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0.75rem;
     }
 
     .card-nav {
         justify-content: center;
-        flex: none;
+    }
+
+    .shloka-header-row-audio .audio-block {
         width: 100%;
+        max-width: 100%;
+        min-width: 0;
+        flex: none;
+    }
+
+    .audio-label-row {
+        width: 100%;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+        gap: 0.5rem;
+    }
+
+    .shloka-audio-player {
+        display: block;
+        width: 100%;
+        min-width: 240px;
+        max-width: 100%;
+        height: 40px;
+        box-sizing: border-box;
     }
 
     .shloka-card {

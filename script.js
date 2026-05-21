@@ -5,9 +5,6 @@ let currentShloka = 0;
 let pendingShlokaNumber = null;
 let appReady = false;
 let hasDisplayedOnce = false;
-let currentAudioPlaylist = [];
-let currentAudioPartIndex = 0;
-const MAX_AUDIO_PARTS = 99;
 const DATA_CACHE_BUST = '20250518';
 const SCRIPT_STORAGE_KEY = 'yadavabhyudayam-script';
 let scriptMode = localStorage.getItem(SCRIPT_STORAGE_KEY) || 'sanskrit';
@@ -194,14 +191,14 @@ async function loadSarga(sargaNumber) {
     updateURL();
 }
 
-function displayShloka() {
+async function displayShloka() {
     const shloka = currentSargaData.shlokas[currentShloka];
     if (!shloka) return;
 
     document.getElementById('shloka-label').textContent =
         `${currentSargaData.nameEnglish} — Shloka ${shloka.number}`;
 
-    setupAudioPlaylist(shloka.number);
+    await loadShlokaAudioPlayers(shloka.number);
 
     setScriptText(document.getElementById('shloka-sanskrit'), shloka.sanskrit);
     setScriptText(document.getElementById('shloka-anvaya'), shloka.anvaya);
@@ -229,117 +226,73 @@ function displayShloka() {
     hasDisplayedOnce = true;
 }
 
-function getAudioBasePath(paddedSarga, paddedShloka) {
-    return `audio/sarga-${paddedSarga}/${paddedShloka}`;
-}
-
-async function audioFileExists(url) {
-    try {
-        const response = await fetch(url, { method: 'HEAD' });
-        return response.ok;
-    } catch {
-        return false;
-    }
-}
-
-async function discoverAudioPlaylist(shlokaNumber) {
+function getShlokaAudioPath(shlokaNumber) {
     const paddedSarga = String(currentSarga).padStart(2, '0');
     const paddedShloka = String(shlokaNumber).padStart(3, '0');
-    const base = getAudioBasePath(paddedSarga, paddedShloka);
-    const playlist = [];
+    return `audio/sarga-${paddedSarga}/${paddedShloka}.mp3`;
+}
 
-    for (let part = 1; part <= MAX_AUDIO_PARTS; part++) {
-        const paddedPart = String(part).padStart(3, '0');
-        const path = `${base}-${paddedPart}.mp3`;
-        if (!(await audioFileExists(path))) break;
-        playlist.push(path);
-    }
+function getMeaningAudioPath(shlokaNumber) {
+    const paddedSarga = String(currentSarga).padStart(2, '0');
+    const paddedShloka = String(shlokaNumber).padStart(3, '0');
+    return `audio/sarga-${paddedSarga}/${paddedShloka}-meaning.mp3`;
+}
 
-    if (playlist.length === 0) {
-        const singleFile = `${base}.mp3`;
-        if (await audioFileExists(singleFile)) {
-            playlist.push(singleFile);
+async function sniffAudioMime(path) {
+    try {
+        const url = new URL(path, window.location.href);
+        const response = await fetch(url, { headers: { Range: 'bytes=0-11' } });
+        if (!response.ok) return 'audio/mpeg';
+        const bytes = new Uint8Array(await response.arrayBuffer());
+        if (
+            bytes.length >= 8 &&
+            bytes[4] === 0x66 &&
+            bytes[5] === 0x74 &&
+            bytes[6] === 0x79 &&
+            bytes[7] === 0x70
+        ) {
+            return 'audio/mp4';
         }
-    }
-
-    return playlist;
-}
-
-function updateAudioPartIndicator() {
-    const indicator = document.getElementById('audio-part-indicator');
-    const partNav = document.getElementById('audio-part-nav');
-    const partPrevBtns = document.querySelectorAll('.audio-part-prev');
-    const partNextBtns = document.querySelectorAll('.audio-part-next');
-
-    const hasMultipleParts = currentAudioPlaylist.length > 1;
-
-    if (partNav) {
-        partNav.hidden = !hasMultipleParts;
-    }
-
-    if (indicator) {
-        indicator.textContent = hasMultipleParts
-            ? `Part ${currentAudioPartIndex + 1} / ${currentAudioPlaylist.length}`
-            : '';
-    }
-
-    const isFirstPart = currentAudioPartIndex === 0;
-    const isLastPart = currentAudioPartIndex >= currentAudioPlaylist.length - 1;
-
-    partPrevBtns.forEach((btn) => {
-        btn.disabled = !hasMultipleParts || isFirstPart;
-    });
-    partNextBtns.forEach((btn) => {
-        btn.disabled = !hasMultipleParts || isLastPart;
-    });
-}
-
-function goAudioPartPrev() {
-    if (currentAudioPartIndex <= 0) return;
-    currentAudioPartIndex--;
-    playCurrentAudioPart(true);
-}
-
-function goAudioPartNext() {
-    if (currentAudioPartIndex >= currentAudioPlaylist.length - 1) return;
-    currentAudioPartIndex++;
-    playCurrentAudioPart(true);
-}
-
-function playCurrentAudioPart(autoplay = false) {
-    const audioEl = document.getElementById('shloka-audio');
-    const audioSource = document.getElementById('audio-source');
-
-    if (!currentAudioPlaylist.length) {
-        audioSource.removeAttribute('src');
-        audioEl.load();
-        updateAudioPartIndicator();
-        return;
-    }
-
-    audioSource.src = currentAudioPlaylist[currentAudioPartIndex];
-    audioEl.load();
-    updateAudioPartIndicator();
-
-    if (autoplay) {
-        audioEl.play().catch(() => {});
+        return 'audio/mpeg';
+    } catch {
+        return 'audio/mpeg';
     }
 }
 
-function onAudioPartEnded() {
-    if (currentAudioPartIndex < currentAudioPlaylist.length - 1) {
-        currentAudioPartIndex++;
-        playCurrentAudioPart(true);
-    }
-}
-
-async function setupAudioPlaylist(shlokaNumber) {
-    const audioEl = document.getElementById('shloka-audio');
+function setAudioPlayerSrc(audioEl, path, mimeType) {
+    if (!audioEl || !path) return;
     audioEl.pause();
+    const url = new URL(path, window.location.href);
+    url.searchParams.set('player', audioEl.id);
+    audioEl.removeAttribute('src');
+    audioEl.innerHTML = '';
+    const source = document.createElement('source');
+    source.src = url.href;
+    source.type = mimeType;
+    audioEl.appendChild(source);
+    audioEl.load();
+}
 
-    currentAudioPlaylist = await discoverAudioPlaylist(shlokaNumber);
-    currentAudioPartIndex = 0;
-    playCurrentAudioPart();
+async function loadShlokaAudioPlayers(shlokaNumber) {
+    const shlokaAudio = document.getElementById('shloka-audio-shloka');
+    const meaningAudio =
+        document.getElementById('shloka-audio-meaning') ||
+        document.getElementById('shloka-audio');
+
+    const shlokaPath = getShlokaAudioPath(shlokaNumber);
+    const meaningPath = getMeaningAudioPath(shlokaNumber);
+
+    const [shlokaMime, meaningMime] = await Promise.all([
+        sniffAudioMime(shlokaPath),
+        sniffAudioMime(meaningPath),
+    ]);
+
+    if (shlokaAudio) {
+        setAudioPlayerSrc(shlokaAudio, shlokaPath, shlokaMime);
+    }
+    if (meaningAudio) {
+        setAudioPlayerSrc(meaningAudio, meaningPath, meaningMime);
+    }
 }
 
 function scrollToShlokaTop() {
@@ -457,18 +410,6 @@ document.querySelectorAll('.nav-next').forEach((btn) => {
 document.addEventListener('keydown', (e) => {
     if (e.key === 'ArrowRight') goNext();
     if (e.key === 'ArrowLeft') goPrev();
-});
-
-const shlokaAudio = document.getElementById('shloka-audio');
-if (shlokaAudio) {
-    shlokaAudio.addEventListener('ended', onAudioPartEnded);
-}
-
-document.querySelectorAll('.audio-part-prev').forEach((btn) => {
-    btn.addEventListener('click', goAudioPartPrev);
-});
-document.querySelectorAll('.audio-part-next').forEach((btn) => {
-    btn.addEventListener('click', goAudioPartNext);
 });
 
 initScriptToggle();

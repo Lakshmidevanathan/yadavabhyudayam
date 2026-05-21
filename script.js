@@ -1,6 +1,6 @@
 let metadata = null;
 let currentSargaData = null;
-let currentSarga = 1;
+let currentSarga = 2;
 let currentShloka = 0;
 let pendingShlokaNumber = null;
 let appReady = false;
@@ -8,6 +8,7 @@ let hasDisplayedOnce = false;
 let currentAudioPlaylist = [];
 let currentAudioPartIndex = 0;
 const MAX_AUDIO_PARTS = 99;
+const DATA_CACHE_BUST = '20250518';
 const SCRIPT_STORAGE_KEY = 'yadavabhyudayam-script';
 let scriptMode = localStorage.getItem(SCRIPT_STORAGE_KEY) || 'sanskrit';
 
@@ -69,7 +70,7 @@ function initScriptToggle() {
 }
 
 async function loadMetadata() {
-    const response = await fetch('data/metadata.json');
+    const response = await fetch(`data/metadata.json?v=${DATA_CACHE_BUST}`);
     if (!response.ok) {
         throw new Error('Could not load metadata.json');
     }
@@ -90,6 +91,18 @@ function getFirstAvailableSarga() {
 
 function resolveInitialSarga() {
     if (!metadata) return;
+
+    const hash = window.location.hash;
+    if (hash) {
+        const params = new URLSearchParams(hash.substring(1));
+        const hashSarga = parseInt(params.get('sarga'), 10);
+        if (!Number.isNaN(hashSarga) && !isSargaAvailable(hashSarga)) {
+            currentSarga = getFirstAvailableSarga();
+            pendingShlokaNumber = null;
+            return;
+        }
+    }
+
     if (!isSargaAvailable(currentSarga)) {
         currentSarga = getFirstAvailableSarga();
         pendingShlokaNumber = null;
@@ -137,12 +150,19 @@ async function loadSarga(sargaNumber) {
     setNavEnabled(false);
 
     const paddedNumber = String(sargaNumber).padStart(2, '0');
-    const response = await fetch(`data/sarga-${paddedNumber}.json`);
+    const response = await fetch(`data/sarga-${paddedNumber}.json?v=${DATA_CACHE_BUST}`);
     if (!response.ok) {
         throw new Error(`Could not load sarga-${paddedNumber}.json`);
     }
     currentSargaData = await response.json();
     if (!currentSargaData.shlokas?.length) {
+        const fallbackSarga = getFirstAvailableSarga();
+        if (sargaNumber !== fallbackSarga) {
+            currentSarga = fallbackSarga;
+            pendingShlokaNumber = null;
+            document.getElementById('sarga-select').value = String(currentSarga);
+            return loadSarga(currentSarga);
+        }
         throw new Error(`No shlokas in sarga-${paddedNumber}.json`);
     }
 
@@ -162,7 +182,6 @@ function displayShloka() {
     setupAudioPlaylist(shloka.number);
 
     setScriptText(document.getElementById('shloka-sanskrit'), shloka.sanskrit);
-    setScriptText(document.getElementById('shloka-padaccheda'), shloka.padaccheda);
     setScriptText(document.getElementById('shloka-anvaya'), shloka.anvaya);
     document.getElementById('shloka-translation').textContent = shloka.translation;
 

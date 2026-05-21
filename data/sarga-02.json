@@ -8,20 +8,20 @@
       "sanskrit": "लिलेख विश्वानि जगन्त्यभिज्ञा लीलाहृते चित्रपटे यथार्हम् ।\nप्रायः प्रजानां पतयः प्रतीताः यन्मातृकाः स्वेषु विधिष्वभूवन् ॥",
       "anvaya": "अभिज्ञा (देवकी) लीलाहृते चित्रपटे विश्वानि जगन्ति यथार्हम् लिलेख;\nप्रतीताः प्रजानां पतयः स्वेषु विधिषु यन्मातृकाः अभूवन् (इति) प्रायः।",
       "wordMeanings": [
-        { "word": "लिलेख", "meaning": "she painted / drew" },
-        { "word": "विश्वानि", "meaning": "all / entire" },
+        { "word": "लिलेख", "meaning": "she painted" },
+        { "word": "विश्वानि", "meaning": "entire" },
         { "word": "जगन्ति", "meaning": "worlds" },
-        { "word": "अभिज्ञा", "meaning": "the skilled (Devakī) / the wise one" },
-        { "word": "लीला-हृते", "meaning": "brought for (her) play/pastime" },
-        { "word": "चित्रपटे", "meaning": "on the picture-canvas" },
-        { "word": "यथार्हम्", "meaning": "as was appropriate / properly" },
-        { "word": "प्रायः", "meaning": "likely / probably" },
+        { "word": "अभिज्ञा", "meaning": "the skilled (Devakī)" },
+        { "word": "लीला-हृते", "meaning": "brought for play" },
+        { "word": "चित्रपटे", "meaning": "on the canvas" },
+        { "word": "यथार्हम्", "meaning": "as was appropriate" },
+        { "word": "प्रायः", "meaning": "likely" },
         { "word": "प्रजानाम्", "meaning": "of the living beings" },
         { "word": "पतयः", "meaning": "the lords" },
-        { "word": "प्रतीताः", "meaning": "celebrated / famous" },
-        { "word": "यन्मातृकाः", "meaning": "having those (paintings) as models or examples" },
+        { "word": "प्रतीताः", "meaning": "celebrated" },
+        { "word": "यन्मातृकाः", "meaning": "having those paintings as models" },
         { "word": "स्वेषु", "meaning": "in their own" },
-        { "word": "विधिषु", "meaning": "in the acts of creation / in their duties" },
+        { "word": "विधिषु", "meaning": "in the acts of creations" },
         { "word": "अभूवन्", "meaning": "they became" }
       ],
       "translation": "The skilled (Devakī) painted all the worlds on the picture-canvas brought for her play, as was appropriate; likely, the celebrated Lords of beings (the Creators/Prajāpatis) used these as models/prototypes in their own acts of creation."
@@ -58,7 +58,7 @@
         { "word": "किम्", "meaning": "what?" },
         { "word": "भुक्तपूर्वेषु", "meaning": "among previously enjoyed things" },
         { "word": "अधुना", "meaning": "now" },
-        { "word": "उपदद्याम्", "meaning": "shall I give / offer" },
+        { "word": "उपदद्याम्", "meaning": "shall I give" },
         { "word": "वयस्यया", "meaning": "by a companion" },
         { "word": "भावविदा", "meaning": "knowing your need" },
         { "word": "अनुयुक्ता", "meaning": "being asked" },
@@ -67,7 +67,7 @@
         { "word": "इति", "meaning": "thus" },
         { "word": "एव", "meaning": "indeed" },
         { "word": "जगाद", "meaning": "said" },
-        { "word": "नाथा", "meaning": "the lady / queen" }
+        { "word": "नाथा", "meaning": "the lady" }
       ],
       "translation": "Questioned by her companion who understood her needs—‘What do you desire that you have never obtained before? Or what shall I now provide among things already enjoyed?’—the queen replied simply: ‘Nothing.’"
     },
@@ -77,7 +77,7 @@
       "anvaya": "‘देवि, सखीजनानाम् अनादरे तव दया कथम् न दूयेत?’ इति (सखी) उपह्वरे सल्लपिता; देवी मनोज्ञैः आलोकनैः उत्तरम् आचचक्षे।",
       "wordMeanings": [
         { "word": "अनादरे", "meaning": "in disregard" },
-        { "word": "देवि", "meaning": "O lady / O queen" },
+        { "word": "देवि", "meaning": "O lady" },
         { "word": "सखीजनानाम्", "meaning": "of the companions" },
         { "word": "कथम्", "meaning": "how" },
         { "word": "न", "meaning": "not" },

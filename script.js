@@ -27,6 +27,28 @@ function setScriptText(element, devanagariText) {
     element.textContent = displayScript(devanagariText);
 }
 
+function appendWordMeaningPair(row, { word, meaning }, isSecondPair) {
+    const wordCell = document.createElement('td');
+    const meaningCell = document.createElement('td');
+    wordCell.className = isSecondPair ? 'word-cell pair-gap' : 'word-cell';
+    meaningCell.className = 'meaning-cell';
+    setScriptText(wordCell, word);
+    meaningCell.textContent = meaning;
+    row.appendChild(wordCell);
+    row.appendChild(meaningCell);
+}
+
+function appendEmptyWordMeaningPair(row) {
+    const wordCell = document.createElement('td');
+    const meaningCell = document.createElement('td');
+    wordCell.className = 'word-cell pair-gap empty-cell';
+    meaningCell.className = 'meaning-cell empty-cell';
+    wordCell.innerHTML = '&nbsp;';
+    meaningCell.innerHTML = '&nbsp;';
+    row.appendChild(wordCell);
+    row.appendChild(meaningCell);
+}
+
 function updateScriptToggleUI() {
     const sanskritBtn = document.getElementById('btn-script-sanskrit');
     const tamilBtn = document.getElementById('btn-script-tamil');
@@ -187,16 +209,17 @@ function displayShloka() {
 
     const tbody = document.querySelector('#word-meanings-table tbody');
     tbody.innerHTML = '';
-    (shloka.wordMeanings || []).forEach(({ word, meaning }) => {
+    const wordMeanings = shloka.wordMeanings || [];
+    for (let i = 0; i < wordMeanings.length; i += 2) {
         const row = document.createElement('tr');
-        const wordCell = document.createElement('td');
-        const meaningCell = document.createElement('td');
-        setScriptText(wordCell, word);
-        meaningCell.textContent = meaning;
-        row.appendChild(wordCell);
-        row.appendChild(meaningCell);
+        appendWordMeaningPair(row, wordMeanings[i], false);
+        if (wordMeanings[i + 1]) {
+            appendWordMeaningPair(row, wordMeanings[i + 1], true);
+        } else {
+            appendEmptyWordMeaningPair(row);
+        }
         tbody.appendChild(row);
-    });
+    }
 
     updateNavigation();
 

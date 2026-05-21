@@ -275,40 +275,50 @@ body.script-tamil .sanskrit-text {
     line-height: 1.75;
 }
 
-body.script-tamil .word-meanings tbody td:first-child {
+body.script-tamil .word-meanings tbody td.word-cell {
     font-size: calc(1.1rem * var(--script-content-scale));
 }
 
 .word-meanings {
     width: 100%;
+    table-layout: fixed;
     border-collapse: collapse;
 }
 
-.word-meanings thead th {
-    background: #f9f1e6;
-    padding: 0.6rem 1rem;
-    text-align: left;
-    font-size: 0.85rem;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    color: #8b1a1a;
-    border-bottom: 2px solid #e8d5b7;
-}
-
-.word-meanings tbody td {
-    padding: 0.5rem 1rem;
+.word-meanings tbody tr {
     border-bottom: 1px solid #f0e6d3;
-    font-size: 0.95rem;
 }
 
-.word-meanings tbody tr:last-child td {
+.word-meanings tbody tr:last-child {
     border-bottom: none;
 }
 
-.word-meanings tbody td:first-child {
+.word-meanings tbody td {
+    padding: 0.3rem 0.65rem;
+    font-size: 0.95rem;
+    vertical-align: top;
+    text-align: left;
+}
+
+.word-meanings tbody td.word-cell {
+    width: 22%;
     font-size: 1.1rem;
     color: #2c1810;
     font-weight: 500;
+}
+
+.word-meanings tbody td.meaning-cell {
+    width: 28%;
+    color: #444;
+}
+
+.word-meanings tbody td.pair-gap {
+    border-left: 1px solid #e8d5b7;
+    padding-left: 0.85rem;
+}
+
+.word-meanings tbody td.empty-cell {
+    color: transparent;
 }
 
 .translation-text {
@@ -397,11 +407,20 @@ footer.navigation {
         font-size: calc(1.1rem * var(--script-content-scale));
     }
 
-    .word-meanings tbody td:first-child {
+    .word-meanings tbody td {
+        padding: 0.25rem 0.45rem;
+        font-size: 0.88rem;
+    }
+
+    .word-meanings tbody td.word-cell {
         font-size: 1rem;
     }
 
-    body.script-tamil .word-meanings tbody td:first-child {
+    .word-meanings tbody td.pair-gap {
+        padding-left: 0.5rem;
+    }
+
+    body.script-tamil .word-meanings tbody td.word-cell {
         font-size: calc(1rem * var(--script-content-scale));
     }
 
